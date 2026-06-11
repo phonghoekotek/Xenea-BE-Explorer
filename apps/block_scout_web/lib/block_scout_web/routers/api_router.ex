@@ -130,9 +130,19 @@ defmodule BlockScoutWeb.Routers.ApiRouter do
     end
   end
 
+   scope "/v2/verified-signatures" do
+    pipe_through(:api_v2_no_session)
+
+    get("/", V2.VerifiedSignatureController, :index)
+    post("/", V2.VerifiedSignatureController, :create)
+    get("/:id", V2.VerifiedSignatureController, :show)
+  end
+
   scope "/v2", as: :api_v2 do
     pipe_through(:api_v2)
     get("/openapi", OpenApiSpex.Plug.RenderSpec, [])
+    get("/docs", V2.DocsController, :index)
+
 
     scope "/search" do
       get("/", V2.SearchController, :search)
@@ -206,6 +216,12 @@ defmodule BlockScoutWeb.Routers.ApiRouter do
 
     scope "/token-transfers" do
       get("/", V2.TokenTransferController, :token_transfers)
+    end
+
+    scope "/nfts" do
+      get("/", V2.TopNftController, :top_nfts)
+      get("/transfers", V2.NftTransferController, :nft_transfers)
+      get("/mints", V2.NftMintController, :nft_mints)
     end
 
     scope "/internal-transactions" do

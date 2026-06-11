@@ -105,6 +105,7 @@ defmodule BlockScoutWeb.Application do
       )
 
       base_workers = [
+        {BlockScoutWeb.TopNftCache, []},
         {Phoenix.PubSub, name: BlockScoutWeb.PubSub},
         {MainPage, name: MainPage},
         {Main, name: Main},

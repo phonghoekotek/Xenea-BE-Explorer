@@ -78,3 +78,4 @@ tasks_in_progress
 /temp
 
 openapi.yaml
+.yarn-integrity
